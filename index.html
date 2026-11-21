@@ -119,6 +119,36 @@
       animation: confettiFall linear forwards;
     }
 
+    /* Animasi Equalizer Backsound */
+    @keyframes eqBounce {
+      0%, 100% { transform: scaleY(0.35); }
+      50% { transform: scaleY(1); }
+    }
+    .eq-bar {
+      width: 3px;
+      height: 14px;
+      border-radius: 9999px;
+      background-color: #496B54;
+      transform-origin: bottom;
+      transform: scaleY(0.35);
+      transition: background-color 0.2s ease;
+    }
+    .eq-playing .eq-bar:nth-child(1) {
+      animation: eqBounce 0.75s ease-in-out infinite;
+    }
+    .eq-playing .eq-bar:nth-child(2) {
+      animation: eqBounce 0.55s ease-in-out 0.15s infinite;
+    }
+    .eq-playing .eq-bar:nth-child(3) {
+      animation: eqBounce 0.85s ease-in-out 0.3s infinite;
+    }
+
+    /* Custom slider volume lembut */
+    input[type="range"].music-slider {
+      accent-color: #496B54;
+      cursor: pointer;
+    }
+
     /* Transisi smooth untuk layar amplop pembuka */
     #envelope-screen {
       transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
@@ -230,6 +260,45 @@
       </div>
 
       <div class="mt-4 space-y-3 max-h-[60vh] overflow-y-auto pr-1 text-xs">
+        <!-- Bagian Custom Backsound di Modal Trial -->
+        <div class="rounded-2xl bg-gold-300/20 p-3.5 border border-gold-300/80 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="font-bold text-sage-900">🎵 Custom Backsound (MP3 / Link)</label>
+            <span class="rounded-full bg-cream-50 px-2 py-0.5 text-[10px] font-semibold text-sage-700">Opsional</span>
+          </div>
+          <p class="text-[11px] text-sage-700">
+            Default-nya sudah pakai melodi lembut otomatis. Kalau mau pakai lagu sendiri, pilih file MP3 atau isi nama file seperti <code>backsound.mp3</code>.
+          </p>
+          <input
+            id="custom-audio-file"
+            type="file"
+            accept="audio/*"
+            class="block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-gold-500 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white"
+          />
+          <div class="flex gap-2">
+            <input
+              id="custom-audio-url"
+              type="text"
+              placeholder="Contoh: backsound.mp3 atau URL audio"
+              class="flex-1 rounded-xl border border-sage-200 bg-cream-50 px-3 py-1.5 text-xs text-sage-900 placeholder:text-sage-500 focus:border-sage-500 focus:outline-none"
+            />
+            <button
+              id="apply-audio-url-btn"
+              type="button"
+              class="rounded-xl bg-sage-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-sage-900 active:scale-95"
+            >
+              Pakai
+            </button>
+          </div>
+          <button
+            id="reset-synth-music-btn"
+            type="button"
+            class="text-[11px] font-semibold text-sage-700 underline hover:text-sage-900"
+          >
+            Kembali ke melodi bawaan (tanpa file)
+          </button>
+        </div>
+
         <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
           <label class="block font-bold text-sage-900 mb-1">1. Foto Intro (Cermin Rapi - <code>foto-1.jpg</code>)</label>
           <input type="file" accept="image/*" data-target="img-slot-1" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
@@ -279,6 +348,50 @@
       <p class="text-xs text-sage-600">
         Scroll pelan-pelan aja bacanya, gak usah buru-buru ✨
       </p>
+
+      <!-- Mini Music Control Bar Estetik -->
+      <div class="mx-auto mt-3 flex flex-wrap items-center justify-between gap-2.5 rounded-2xl border border-sage-200/90 bg-cream-50/95 px-3.5 py-2.5 text-left shadow-xs backdrop-blur-xs">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <button
+            id="music-toggle-btn"
+            type="button"
+            aria-label="Putar atau jeda backsound"
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sage-700 text-cream-50 shadow-xs transition hover:bg-sage-900 active:scale-95"
+          >
+            <span id="music-icon">▶</span>
+          </button>
+
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <div id="music-eq" class="flex items-end gap-[2.5px] h-3.5" aria-hidden="true">
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+              </div>
+              <span id="music-status-label" class="truncate text-xs font-bold text-sage-900">
+                Melodi Romantis Tengil
+              </span>
+            </div>
+            <p id="music-sub-label" class="truncate text-[10px] text-sage-600">
+              Backsound siap • Klik play atau buka surat
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 ml-auto">
+          <span class="text-xs text-sage-700" title="Volume">🔊</span>
+          <input
+            id="music-volume-slider"
+            type="range"
+            min="0"
+            max="1"
+            step="0.02"
+            value="0.55"
+            aria-label="Atur volume backsound"
+            class="music-slider w-16 sm:w-20 h-1.5 rounded-lg bg-sage-200"
+          />
+        </div>
+      </div>
     </header>
 
     <!-- -------------------- BAGIAN 1: INTRO (FOTO CERMIN RAPI) -------------------- -->
@@ -508,24 +621,156 @@
   <!-- ==================== JAVASCRIPT INTERAKTIVITAS & ANIMASI ==================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Setup Efek Suara Lembut dengan Tone.js (Aman untuk interaksi user)
+      // 1. Setup Efek Suara Lembut & Backsound Player (Web Audio API + HTML5 Audio MP3/URL)
       let synth = null;
-      const playSoftChime = (notes = ['C5', 'E5', 'G5']) => {
+      let bgmGain = null;
+      let bgmLoopTimer = null;
+      let bgmStepIndex = 0;
+      let isBgmPlaying = false;
+      let bgmVolume = 0.55;
+      let audioMode = 'synth'; // 'synth' | 'custom'
+
+      // Elemen Audio HTML5 untuk MP3 lokal / URL eksternal
+      const customAudioEl = new Audio();
+      customAudioEl.loop = true;
+      customAudioEl.preload = 'auto';
+      customAudioEl.volume = bgmVolume;
+
+      const musicToggleBtn = document.getElementById('music-toggle-btn');
+      const musicIcon = document.getElementById('music-icon');
+      const musicEq = document.getElementById('music-eq');
+      const musicStatusLabel = document.getElementById('music-status-label');
+      const musicSubLabel = document.getElementById('music-sub-label');
+      const musicVolumeSlider = document.getElementById('music-volume-slider');
+
+      // Pola melodi akustik lembut bergaya romantis & sedikit tengil (chord progression hangat)
+      const melodyPattern = [
+        { notes: ['C4', 'E4', 'G4'], lead: 'E5', dur: '4n' },
+        { notes: ['C4', 'E4', 'G4'], lead: 'G5', dur: '8n' },
+        { notes: ['A3', 'C4', 'E4'], lead: 'A5', dur: '4n' },
+        { notes: ['A3', 'C4', 'E4'], lead: 'G5', dur: '8n' },
+        { notes: ['F3', 'A3', 'C4'], lead: 'F5', dur: '4n' },
+        { notes: ['F3', 'A3', 'C4'], lead: 'E5', dur: '8n' },
+        { notes: ['G3', 'B3', 'D4'], lead: 'D5', dur: '4n' },
+        { notes: ['G3', 'B3', 'D4'], lead: 'G4', dur: '8n' }
+      ];
+
+      const ensureAudioEngine = async () => {
         try {
           if (typeof Tone !== 'undefined') {
+            if (Tone.context.state !== 'running') {
+              await Tone.start();
+            }
+            if (!bgmGain) {
+              bgmGain = new Tone.Gain(bgmVolume * 0.28).toDestination();
+            }
             if (!synth) {
               synth = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: 'sine' },
-                envelope: { attack: 0.02, decay: 0.2, sustain: 0.1, release: 0.6 }
-              }).toDestination();
-              synth.volume.value = -10;
+                oscillator: { type: 'triangle' },
+                envelope: { attack: 0.04, decay: 0.35, sustain: 0.2, release: 0.9 }
+              }).connect(bgmGain);
             }
-            if (Tone.context.state !== 'running') {
-              Tone.start();
-            }
+          }
+        } catch (err) {
+          // Tangani jika konteks audio belum diizinkan browser
+        }
+      };
+
+      const updateMusicUI = (playing, titleText, subText) => {
+        isBgmPlaying = playing;
+        musicIcon.textContent = playing ? '❚❚' : '▶';
+        if (playing) {
+          musicEq.classList.add('eq-playing');
+        } else {
+          musicEq.classList.remove('eq-playing');
+        }
+        if (titleText) musicStatusLabel.textContent = titleText;
+        if (subText) musicSubLabel.textContent = subText;
+      };
+
+      const playSynthStep = () => {
+        if (!isBgmPlaying || audioMode !== 'synth') return;
+        try {
+          if (synth && Tone && Tone.context.state === 'running') {
+            const step = melodyPattern[bgmStepIndex % melodyPattern.length];
+            const now = Tone.now();
+            // Petikan akor lembut + nada melodi kecil
+            synth.triggerAttackRelease(step.notes, '2n', now, 0.45);
+            synth.triggerAttackRelease(step.lead, step.dur, now + 0.08, 0.55);
+            bgmStepIndex++;
+          }
+        } catch (err) {
+          // Abaikan error sesaat pada sintesis nada
+        }
+      };
+
+      const startSynthLoop = () => {
+        stopSynthLoop();
+        playSynthStep();
+        bgmLoopTimer = setInterval(playSynthStep, 680);
+      };
+
+      const stopSynthLoop = () => {
+        if (bgmLoopTimer) {
+          clearInterval(bgmLoopTimer);
+          bgmLoopTimer = null;
+        }
+      };
+
+      const playBacksound = async () => {
+        try {
+          if (audioMode === 'custom' && customAudioEl.src) {
+            customAudioEl.volume = bgmVolume;
+            await customAudioEl.play();
+            updateMusicUI(true, musicStatusLabel.textContent, 'Sedang diputar • Loop aktif');
+          } else {
+            audioMode = 'synth';
+            await ensureAudioEngine();
+            updateMusicUI(true, 'Melodi Romantis Tengil', 'Backsound aktif • Mode hangat');
+            startSynthLoop();
+          }
+        } catch (err) {
+          updateMusicUI(false, musicStatusLabel.textContent, 'Klik tombol play untuk memutar');
+        }
+      };
+
+      const pauseBacksound = () => {
+        stopSynthLoop();
+        try {
+          customAudioEl.pause();
+        } catch (err) {
+          // Abaikan jika audio belum dimuat
+        }
+        updateMusicUI(false, musicStatusLabel.textContent, 'Dijeda • Klik play untuk lanjut');
+      };
+
+      const toggleBacksound = async () => {
+        if (isBgmPlaying) {
+          pauseBacksound();
+        } else {
+          await playBacksound();
+        }
+      };
+
+      const applyVolume = (val) => {
+        bgmVolume = Math.max(0, Math.min(1, parseFloat(val) || 0));
+        customAudioEl.volume = bgmVolume;
+        if (bgmGain) {
+          try {
+            bgmGain.gain.rampTo(bgmVolume * 0.28, 0.1);
+          } catch (err) {
+            bgmGain.gain.value = bgmVolume * 0.28;
+          }
+        }
+      };
+
+      const playSoftChime = async (notes = ['C5', 'E5', 'G5']) => {
+        try {
+          await ensureAudioEngine();
+          if (synth && typeof Tone !== 'undefined') {
             const now = Tone.now();
             notes.forEach((note, idx) => {
-              synth.triggerAttackRelease(note, '8n', now + idx * 0.09);
+              synth.triggerAttackRelease(note, '8n', now + idx * 0.09, 0.45);
             });
           }
         } catch (err) {
@@ -533,12 +778,74 @@
         }
       };
 
-      // 2. Interaksi Buka Amplop Pembuka
+      musicToggleBtn.addEventListener('click', toggleBacksound);
+      musicVolumeSlider.addEventListener('input', (e) => applyVolume(e.target.value));
+
+      // Event listener file & URL audio kustom di panel trial
+      const customAudioFileInput = document.getElementById('custom-audio-file');
+      const customAudioUrlInput = document.getElementById('custom-audio-url');
+      const applyAudioUrlBtn = document.getElementById('apply-audio-url-btn');
+      const resetSynthMusicBtn = document.getElementById('reset-synth-music-btn');
+
+      if (customAudioFileInput) {
+        customAudioFileInput.addEventListener('change', async (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          stopSynthLoop();
+          audioMode = 'custom';
+          const objectUrl = URL.createObjectURL(file);
+          customAudioEl.src = objectUrl;
+          customAudioEl.load();
+          const cleanName = file.name.replace(/\.[^/.]+$/, '');
+          updateMusicUI(false, cleanName || 'Audio Kustom', 'Memuat file audio...');
+          await playBacksound();
+        });
+      }
+
+      if (applyAudioUrlBtn && customAudioUrlInput) {
+        applyAudioUrlBtn.addEventListener('click', async () => {
+          const rawUrl = customAudioUrlInput.value.trim();
+          if (!rawUrl) return;
+          stopSynthLoop();
+          audioMode = 'custom';
+          customAudioEl.src = rawUrl;
+          customAudioEl.load();
+          updateMusicUI(false, rawUrl, 'Memuat audio dari tautan...');
+          await playBacksound();
+        });
+      }
+
+      customAudioEl.addEventListener('error', () => {
+        if (audioMode === 'custom') {
+          updateMusicUI(false, 'Audio gagal dimuat', 'Cek nama file/URL atau pakai melodi bawaan');
+        }
+      });
+
+      if (resetSynthMusicBtn) {
+        resetSynthMusicBtn.addEventListener('click', async () => {
+          try {
+            customAudioEl.pause();
+            customAudioEl.removeAttribute('src');
+          } catch (err) {
+            // Abaikan
+          }
+          if (customAudioFileInput) customAudioFileInput.value = '';
+          if (customAudioUrlInput) customAudioUrlInput.value = '';
+          audioMode = 'synth';
+          updateMusicUI(false, 'Melodi Romantis Tengil', 'Backsound bawaan siap');
+          await playBacksound();
+        });
+      }
+
+      // 2. Interaksi Buka Amplop Pembuka + Auto-start Backsound
       const envelopeScreen = document.getElementById('envelope-screen');
       const openLetterBtn = document.getElementById('open-letter-btn');
 
-      openLetterBtn.addEventListener('click', () => {
-        playSoftChime(['E5', 'G5', 'B5', 'E6']);
+      openLetterBtn.addEventListener('click', async () => {
+        await playSoftChime(['E5', 'G5', 'B5', 'E6']);
+        setTimeout(() => {
+          playBacksound();
+        }, 220);
         envelopeScreen.classList.add('opened');
         setTimeout(() => {
           envelopeScreen.style.display = 'none';
