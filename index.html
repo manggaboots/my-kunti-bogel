@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Surat Rahasia Buat My Kunti Bogel 👻❤️</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fraunces (untuk sentuhan editorial romantis) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tone.js untuk efek suara interaksi lembut tanpa file audio eksternal -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Fraunces"', 'serif'],
+          },
+          colors: {
+            cream: {
+              50: '#FDFBF7',
+              100: '#F8F4EC',
+              200: '#EFE8D8',
+              300: '#E2D6BE',
+            },
+            sage: {
+              100: '#E6EFE8',
+              200: '#CDE0D2',
+              300: '#A7C7B0',
+              500: '#6E967B',
+              700: '#496B54',
+              900: '#2A3F31',
+            },
+            gold: {
+              300: '#E5C687',
+              500: '#C89D54',
+              600: '#AD823B',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Pengaturan dasar estetika & animasi 2D lembut */
+    body {
+      background-color: #F8F4EC;
+      color: #2A3F31;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Tekstur kertas halus pada latar belakang */
+    .paper-texture {
+      background-image: radial-gradient(#C89D54 0.45px, transparent 0.45px), radial-gradient(#6E967B 0.45px, #F8F4EC 0.45px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+
+    /* Animasi mengambang halus untuk dekorasi */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: floatSlow 4.5s ease-in-out infinite;
+    }
+
+    /* Animasi muncul saat di-scroll */
+    .reveal-card {
+      opacity: 0;
+      transform: translateY(28px) scale(0.98);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-card.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Bingkai Foto Cermin (Portrait 3:4) dengan crop rapi dari bagian atas agar plang tersembunyi */
+    .mirror-photo-crop {
+      object-fit: cover;
+      object-position: center 78%; /* Fokus ke bagian bawah/tengah cermin, menyembunyikan plang atas */
+      transform: scale(1.14); /* Sedikit zoom untuk memangkas tepi atas */
+      transform-origin: center bottom;
+    }
+
+    /* Bingkai Foto Kolase 4-Panel agar lega dan semua 4 ekspresi terlihat utuh tanpa terpotong */
+    .collage-photo-fit {
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    /* Animasi Konfeti Hati */
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg) scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(105vh) rotate(540deg) scale(1.15);
+        opacity: 0;
+      }
+    }
+    .heart-confetti {
+      position: fixed;
+      top: -40px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: confettiFall linear forwards;
+    }
+
+    /* Transisi smooth untuk layar amplop pembuka */
+    #envelope-screen {
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #envelope-screen.opened {
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="paper-texture min-h-screen font-sans antialiased selection:bg-sage-200 selection:text-sage-900">
+
+  <!-- =====================================================================
+       PANDUAN PENGGANTIAN FOTO LOKAL (UNTUK DEPLOY KE GITHUB PAGES / HOSTING):
+       Simpan 5 foto kamu di folder yang sama dengan file index.html ini,
+       lalu beri nama sesuai urutan berikut:
+       1. foto-1.jpg -> Foto cermin rapi (Pembuka / Intro)
+       2. foto-2.jpg -> Foto cermin pelukan (Momen Hangat)
+       3. foto-3.jpg -> Foto kolase 4-panel outdoor pepohonan
+       4. foto-4.jpg -> Foto kolase 4-panel di meja / ngobrol
+       5. foto-5.jpg -> Foto kolase 4-panel ekspresi gemas & jahil (Penutup)
+       ===================================================================== -->
+
+  <!-- ==================== 1. HALAMAN PEMBUKA (ENVELOPE LOCK SCREEN) ==================== -->
+  <section id="envelope-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-cream-100/95 backdrop-blur-md px-5 py-8">
+    <!-- Dekorasi sudut estetik -->
+    <div class="pointer-events-none absolute top-6 left-6 h-20 w-20 rounded-full bg-sage-200/50 blur-xl"></div>
+    <div class="pointer-events-none absolute bottom-8 right-6 h-28 w-28 rounded-full bg-gold-300/40 blur-xl"></div>
+
+    <!-- Kartu Amplop Utama -->
+    <div class="relative w-full max-w-sm rounded-3xl border border-gold-300/60 bg-cream-50 p-7 text-center shadow-[0_20px_50px_-15px_rgba(42,63,49,0.16)]">
+      <!-- Badge kecil di atas -->
+      <div class="mx-auto mb-5 inline-flex items-center gap-1.5 rounded-full border border-sage-200 bg-sage-100 px-3.5 py-1 text-xs font-semibold tracking-wide text-sage-700">
+        <span>EDISI KHUSUS &bull; JANGAN DISEBAR</span>
+      </div>
+
+      <!-- Ikon SVG Amplop & Hati Melayang -->
+      <div class="animate-float mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-sage-100 to-cream-200 border border-sage-200/80 shadow-inner">
+        <svg class="h-12 w-12 text-sage-700" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="16" width="52" height="36" rx="8" fill="#E6EFE8" stroke="#496B54" stroke-width="2.5"/>
+          <path d="M8 20L30.2 35.8C31.28 36.57 32.72 36.57 33.8 35.8L56 20" stroke="#496B54" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M32 28.5C32 28.5 24 23.2 24 18.2C24 15.6 26.1 13.5 28.6 13.5C30.2 13.5 31.5 14.3 32 15.5C32.5 14.3 33.8 13.5 35.4 13.5C37.9 13.5 40 15.6 40 18.2C40 23.2 32 28.5 32 28.5Z" fill="#C89D54" stroke="#FDFBF7" stroke-width="1.5"/>
+        </svg>
+      </div>
+
+      <!-- Judul & Subjudul Tengil -->
+      <h1 class="font-serif text-2xl sm:text-3xl font-bold leading-snug text-sage-900">
+        Surat Rahasia Buat My Kunti Bogel 👻❤️
+      </h1>
+
+      <p class="mt-3 text-sm leading-relaxed text-sage-700">
+        Awas kalau dibuka sambil senyum-senyum sendiri. Jangan salahkan pengirim kalau habis ini jadi kangen berat.
+      </p>
+
+      <!-- Garis pemisah aksen emas -->
+      <div class="my-6 flex items-center justify-center gap-2">
+        <span class="h-px w-12 bg-gold-300/70"></span>
+        <span class="text-xs text-gold-600">✦</span>
+        <span class="h-px w-12 bg-gold-300/70"></span>
+      </div>
+
+      <!-- Tombol Buka Surat -->
+      <button
+        id="open-letter-btn"
+        type="button"
+        class="group relative w-full overflow-hidden rounded-2xl bg-sage-700 px-6 py-4 text-sm font-bold text-cream-50 shadow-lg shadow-sage-700/25 transition-all duration-200 hover:bg-sage-900 active:scale-95"
+      >
+        <span class="relative z-10 flex items-center justify-center gap-2">
+          <span>Buka Suratnya Sekarang</span>
+          <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </span>
+      </button>
+
+      <p class="mt-3.5 text-[11px] font-medium text-sage-500">
+        *Pastikan volume HP nyala dikit biar ada efek lucunya
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== TOMBOL FLOATING MODE GANTI FOTO (PREVIEW TRIAL) ==================== -->
+  <div class="fixed bottom-4 right-4 z-40">
+    <button
+      id="toggle-trial-drawer"
+      type="button"
+      class="flex items-center gap-2 rounded-full border border-gold-300 bg-cream-50/95 px-4 py-2.5 text-xs font-bold text-sage-900 shadow-lg backdrop-blur-md transition hover:bg-sage-100 active:scale-95"
+      title="Ganti 5 foto langsung dari HP/Laptop untuk preview"
+    >
+      <span class="flex h-2 w-2 rounded-full bg-gold-500 animate-ping"></span>
+      <span>📷 Ganti Foto (Trial)</span>
+    </button>
+  </div>
+
+  <!-- Modal / Drawer Mode Ganti Foto Trial -->
+  <div id="trial-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-sage-900/50 backdrop-blur-xs p-4">
+    <div class="w-full max-w-md rounded-3xl border border-gold-300/70 bg-cream-50 p-6 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-cream-200 pb-3">
+        <div>
+          <h3 class="font-serif text-lg font-bold text-sage-900">Mode Preview Foto Trial</h3>
+          <p class="text-xs text-sage-600">Pilih foto dari galerimu untuk langsung ngetes tampilannya di kartu ini.</p>
+        </div>
+        <button id="close-trial-modal" type="button" class="rounded-full bg-cream-200 p-2 text-sage-800 hover:bg-sage-200">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-3 max-h-[60vh] overflow-y-auto pr-1 text-xs">
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">1. Foto Intro (Cermin Rapi - <code>foto-1.jpg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-1" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">2. Foto Momen Hangat (Cermin Pelukan - <code>foto-2.jpg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-2" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">3. Foto Kolase Outdoor (<code>foto-3.jpg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-3" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">4. Foto Kolase Meja / Ngobrol (<code>foto-4.jpg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-4" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">5. Foto Kolase Penutup Gemas (<code>foto-5.jpg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-5" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+      </div>
+
+      <div class="mt-5 flex items-center justify-between gap-3">
+        <p class="text-[11px] text-sage-600">Catatan: Preview ini berjalan lokal di browsermu.</p>
+        <button id="done-trial-modal" type="button" class="rounded-xl bg-gold-500 px-4 py-2 text-xs font-bold text-white shadow hover:bg-gold-600">
+          Selesai & Lihat Kartu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 2. KONTEN UTAMA (SCROLLABLE STORY CARDS) ==================== -->
+  <main id="main-story" class="mx-auto max-w-md px-4 pt-8 pb-28 space-y-8">
+
+    <!-- Header Kecil Atas -->
+    <header class="text-center space-y-2 pt-2">
+      <span class="inline-block rounded-full border border-gold-300 bg-cream-50 px-3.5 py-1 text-[11px] font-bold uppercase tracking-widest text-gold-600 shadow-2xs">
+        Arsip Spesial Berdua
+      </span>
+      <h2 class="font-serif text-2xl font-bold text-sage-900">
+        Tentang Kamu &amp; Segala Tingkahnya
+      </h2>
+      <p class="text-xs text-sage-600">
+        Scroll pelan-pelan aja bacanya, gak usah buru-buru ✨
+      </p>
+    </header>
+
+    <!-- -------------------- BAGIAN 1: INTRO (FOTO CERMIN RAPI) -------------------- -->
+    <article class="reveal-card rounded-3xl border border-sage-200/90 bg-cream-50 p-4 sm:p-5 shadow-[0_12px_35px_-12px_rgba(42,63,49,0.12)]">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="rounded-full bg-sage-100 px-3 py-1 text-[11px] font-bold text-sage-700">01 &bull; Pembuka</span>
+        <span class="text-xs text-gold-600 font-medium">Mode Sok Kalem</span>
+      </div>
+
+      <!-- Bingkai Portrait 3:4 dengan crop rapi dari atas -->
+      <div class="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-cream-200 bg-sage-100">
+        <img
+          id="img-slot-1"
+          src="foto-1.jpg"
+          onerror="this.onerror=null; this.src='https://placehold.co/600x800/E6EFE8/2A3F31?text=Slot+Foto+1%0A(foto-1.jpg)%0ACermin+Rapi';"
+          alt="Halo My Kunti Bogel"
+          class="mirror-photo-crop h-full w-full transition-transform duration-700 hover:scale-[1.17]"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-sage-900/35 to-transparent"></div>
+        <span class="absolute bottom-3 left-3 rounded-full bg-cream-50/90 px-3 py-1 text-[11px] font-semibold text-sage-900 backdrop-blur-xs">
+          📍 Mirror check dulu
+        </span>
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+        <h3 class="font-serif text-xl font-bold text-sage-900">
+          Halo, My Kunti Bogel 👻❤️
+        </h3>
+        <p class="text-sm leading-relaxed text-sage-800">
+          Coba liat baik-baik foto ini. Kelihatan kalem, manis, dan anggun banget kan? Padahal aslinya mah kalau udah mode tengil keluar, bikin geleng-geleng kepala.
+        </p>
+        <p class="text-sm leading-relaxed text-sage-700">
+          Tapi anehnya, mau seberapa nyebelin pun kamu, tetep aja kamu orang paling cantik yang selalu sukses bikin aku senyum tiap hari.
+        </p>
+      </div>
+    </article>
+
+    <!-- -------------------- BAGIAN 2: MOMEN HANGAT (FOTO CERMIN PELUKAN) -------------------- -->
+    <article class="reveal-card rounded-3xl border border-sage-200/90 bg-cream-50 p-4 sm:p-5 shadow-[0_12px_35px_-12px_rgba(42,63,49,0.12)]">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="rounded-full bg-sage-100 px-3 py-1 text-[11px] font-bold text-sage-700">02 &bull; Momen Hangat</span>
+        <span class="text-xs text-gold-600 font-medium">Favoritku</span>
+      </div>
+
+      <!-- Bingkai Portrait 3:4 dengan crop rapi dari atas -->
+      <div class="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-cream-200 bg-sage-100">
+        <img
+          id="img-slot-2"
+          src="foto-2.jpg"
+          onerror="this.onerror=null; this.src='https://placehold.co/600x800/EFE8D8/2A3F31?text=Slot+Foto+2%0A(foto-2.jpg)%0AMomen+Pelukan';"
+          alt="Tempat Pulang Paling Nyaman"
+          class="mirror-photo-crop h-full w-full transition-transform duration-700 hover:scale-[1.17]"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-sage-900/35 to-transparent"></div>
+        <span class="absolute bottom-3 left-3 rounded-full bg-cream-50/90 px-3 py-1 text-[11px] font-semibold text-sage-900 backdrop-blur-xs">
+          🤍 Isi ulang energi
+        </span>
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+        <h3 class="font-serif text-xl font-bold text-sage-900">
+          Tempat Pulang Paling Nyaman
+        </h3>
+        <p class="text-sm leading-relaxed text-sage-800">
+          Di luar sana mungkin banyak hal yang bikin capek, ribet, atau pusing. Tapi begitu udah di deket kamu dan meluk kamu kayak gini, rasanya semua berisik di kepala langsung pelan.
+        </p>
+        <p class="text-sm leading-relaxed text-sage-700">
+          Sesimpel berdiri sebelahan sama kamu aja udah cukup buat ngingetin aku kalau aku beruntung banget punya kamu.
+        </p>
+      </div>
+    </article>
+
+    <!-- -------------------- BAGIAN 3: MOMEN SANTAI & JAHIL (KOLASE 4-PANEL 1) -------------------- -->
+    <article class="reveal-card rounded-3xl border border-sage-200/90 bg-cream-50 p-4 sm:p-5 shadow-[0_12px_35px_-12px_rgba(42,63,49,0.12)]">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="rounded-full bg-sage-100 px-3 py-1 text-[11px] font-bold text-sage-700">03 &bull; Santai &amp; Jahil</span>
+        <span class="text-xs text-gold-600 font-medium">4x Lebih Gemas</span>
+      </div>
+
+      <!-- Bingkai Kolase Lega (Rasio tinggi agar 4 panel ekspresi utuh dan jelas) -->
+      <div class="relative aspect-[9/15] w-full overflow-hidden rounded-2xl border-2 border-sage-200/80 bg-cream-100 shadow-inner">
+        <img
+          id="img-slot-3"
+          src="foto-3.jpg"
+          onerror="this.onerror=null; this.src='https://placehold.co/720x1200/E6EFE8/2A3F31?text=Slot+Foto+3%0A(foto-3.jpg)%0AKolase+Outdoor+4-Panel';"
+          alt="Partner In Crime dan Tukang Ngambek"
+          class="collage-photo-fit h-full w-full"
+        />
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+        <h3 class="font-serif text-xl font-bold text-sage-900">
+          Partner In Crime &amp; Tukang Ngambek
+        </h3>
+        <p class="text-sm leading-relaxed text-sage-800">
+          Kalau udah jalan bareng, selalu aja ada tingkah random-nya. Mulai dari pose sok serius, ketawa-ketawa gak jelas, sampai tiba-tiba mode ngambek aktif cuma gara-gara hal sepele.
+        </p>
+        <p class="text-sm leading-relaxed text-sage-700">
+          Tapi jujur, justru momen-momen santai kayak gini yang paling sering kebayang kalau lagi gak ketemu.
+        </p>
+      </div>
+    </article>
+
+    <!-- -------------------- BAGIAN 4: NGOBROL & RECEH (KOLASE 4-PANEL 2) -------------------- -->
+    <article class="reveal-card rounded-3xl border border-sage-200/90 bg-cream-50 p-4 sm:p-5 shadow-[0_12px_35px_-12px_rgba(42,63,49,0.12)]">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="rounded-full bg-sage-100 px-3 py-1 text-[11px] font-bold text-sage-700">04 &bull; Ngobrol &amp; Receh</span>
+        <span class="text-xs text-gold-600 font-medium">Gak Pernah Garing</span>
+      </div>
+
+      <!-- Bingkai Kolase Lega -->
+      <div class="relative aspect-[9/15] w-full overflow-hidden rounded-2xl border-2 border-sage-200/80 bg-cream-100 shadow-inner">
+        <img
+          id="img-slot-4"
+          src="foto-4.jpg"
+          onerror="this.onerror=null; this.src='https://placehold.co/720x1200/EFE8D8/2A3F31?text=Slot+Foto+4%0A(foto-4.jpg)%0AKolase+Ngobrol+4-Panel';"
+          alt="Dari Muka Serius Sampai Muka Aneh"
+          class="collage-photo-fit h-full w-full"
+        />
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+        <h3 class="font-serif text-xl font-bold text-sage-900">
+          Dari Muka Serius Sampai Muka Aneh
+        </h3>
+        <p class="text-sm leading-relaxed text-sage-800">
+          Sama kamu tuh obrolan receh aja bisa jadi topik panjang banget. Belum lagi kalau kamera udah nyala, dalam hitungan detik ekspresinya bisa berubah dari manis banget langsung jadi muka paling jahil.
+        </p>
+        <p class="text-sm leading-relaxed text-sage-700">
+          Gak perlu jaim, gak perlu pura-pura—kita bisa jadi diri sendiri seutuhnya tiap kali duduk bareng.
+        </p>
+      </div>
+    </article>
+
+    <!-- -------------------- BAGIAN 5: PENUTUP (KOLASE 4-PANEL 3) -------------------- -->
+    <article class="reveal-card rounded-3xl border border-gold-300/70 bg-gradient-to-b from-cream-50 to-sage-100/60 p-4 sm:p-5 shadow-[0_12px_35px_-12px_rgba(42,63,49,0.14)]">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="rounded-full bg-gold-300/35 px-3 py-1 text-[11px] font-bold text-gold-600">05 &bull; Penutup</span>
+        <span class="text-xs text-sage-700 font-medium">Selamanya Tengil</span>
+      </div>
+
+      <!-- Bingkai Kolase Lega -->
+      <div class="relative aspect-[9/15] w-full overflow-hidden rounded-2xl border-2 border-gold-300/60 bg-cream-100 shadow-inner">
+        <img
+          id="img-slot-5"
+          src="foto-5.jpg"
+          onerror="this.onerror=null; this.src='https://placehold.co/720x1200/E6EFE8/2A3F31?text=Slot+Foto+5%0A(foto-5.jpg)%0AKolase+Penutup+4-Panel';"
+          alt="Makasih Udah Hadir Kunti Bogel"
+          class="collage-photo-fit h-full w-full"
+        />
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+        <h3 class="font-serif text-xl font-bold text-sage-900">
+          Makasih Udah Hadir, Kunti Bogel ❤️
+        </h3>
+        <p class="text-sm leading-relaxed text-sage-800">
+          Makasih udah sabar ngadepin aku, makasih udah selalu ada, dan makasih udah bikin hari-hari biasa jadi jauh lebih berwarna.
+        </p>
+        <p class="text-sm leading-relaxed text-sage-700">
+          Tetep jadi Kunti Bogel kesayanganku yang tengil, lucu, dan ngangenin ya. Jangan bosen-bosen sama aku!
+        </p>
+      </div>
+    </article>
+
+    <!-- ==================== 3. MINI GAME / INTERAKSI TENGIL DI AKHIR ==================== -->
+    <section id="mini-game-section" class="reveal-card relative rounded-3xl border-2 border-gold-300 bg-cream-50 p-6 text-center shadow-[0_18px_45px_-12px_rgba(200,157,84,0.25)]">
+      <div class="mx-auto mb-3 inline-flex items-center gap-1.5 rounded-full bg-sage-100 px-3.5 py-1 text-xs font-bold text-sage-700">
+        <span>🎯 PERTANYAAN WAJIB JAWAB JUJUR</span>
+      </div>
+
+      <h3 class="font-serif text-2xl font-bold text-sage-900">
+        Sayang banget sama aku kan?
+      </h3>
+
+      <!-- Teks Godaan Dinamis saat tombol 'Enggak' diklik/disentuh -->
+      <p id="tease-message" class="mt-2 min-h-[2.75rem] text-sm font-medium text-sage-700">
+        Pilih salah satu tombol di bawah ini. Awas jangan sampai salah pencet 😏
+      </p>
+
+      <!-- Arena Tombol Interaktif -->
+      <div id="button-arena" class="relative mt-5 flex min-h-[140px] flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-sage-300 bg-cream-100/80 p-4 overflow-hidden">
+        <!-- Tombol Positif -->
+        <button
+          id="btn-yes"
+          type="button"
+          class="z-10 rounded-2xl bg-sage-700 px-6 py-3.5 text-sm font-bold text-cream-50 shadow-md shadow-sage-700/20 transition-all duration-200 hover:bg-sage-900 active:scale-95"
+        >
+          Iya, Sayang Banget ❤️
+        </button>
+
+        <!-- Tombol Kabur -->
+        <button
+          id="btn-no"
+          type="button"
+          class="z-20 rounded-2xl border border-sage-300 bg-cream-50 px-5 py-2.5 text-xs font-semibold text-sage-700 shadow-xs transition-all duration-200 active:scale-95"
+        >
+          Enggak, B aja 😒
+        </button>
+      </div>
+
+      <!-- Kotak Hasil Manis setelah klik 'Iya, Sayang Banget' -->
+      <div id="love-result" class="mt-5 hidden rounded-2xl border border-gold-300 bg-gradient-to-br from-sage-100 via-cream-50 to-gold-300/30 p-5 text-center shadow-inner">
+        <div class="text-3xl mb-2">🥰💐✨</div>
+        <h4 class="font-serif text-lg font-bold text-sage-900">
+          Nah gitu dong, emang gak bisa bohong!
+        </h4>
+        <p class="mt-1.5 text-sm leading-relaxed text-sage-800">
+          Aku juga sayang banget sama kamu, My Kunti Bogel. Sekarang langsung chat aku bilang <em>"Udah baca suratnya, kangen!"</em> biar dapet hadiah peluk nanti ❤️
+        </p>
+        <button
+          id="replay-confetti-btn"
+          type="button"
+          class="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-gold-500 px-4 py-2 text-xs font-bold text-white shadow hover:bg-gold-600 active:scale-95"
+        >
+          <span>Tabur Lope Lagi 🎉</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer Kecil -->
+    <footer class="text-center text-xs text-sage-500 pt-2">
+      Dibuat khusus dengan sepenuh hati &amp; sedikit keisengan &bull; Untuk My Kunti Bogel
+    </footer>
+  </main>
+
+  <!-- ==================== JAVASCRIPT INTERAKTIVITAS & ANIMASI ==================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Setup Efek Suara Lembut dengan Tone.js (Aman untuk interaksi user)
+      let synth = null;
+      const playSoftChime = (notes = ['C5', 'E5', 'G5']) => {
+        try {
+          if (typeof Tone !== 'undefined') {
+            if (!synth) {
+              synth = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: 'sine' },
+                envelope: { attack: 0.02, decay: 0.2, sustain: 0.1, release: 0.6 }
+              }).toDestination();
+              synth.volume.value = -10;
+            }
+            if (Tone.context.state !== 'running') {
+              Tone.start();
+            }
+            const now = Tone.now();
+            notes.forEach((note, idx) => {
+              synth.triggerAttackRelease(note, '8n', now + idx * 0.09);
+            });
+          }
+        } catch (err) {
+          // Abaikan jika browser memblokir audio
+        }
+      };
+
+      // 2. Interaksi Buka Amplop Pembuka
+      const envelopeScreen = document.getElementById('envelope-screen');
+      const openLetterBtn = document.getElementById('open-letter-btn');
+
+      openLetterBtn.addEventListener('click', () => {
+        playSoftChime(['E5', 'G5', 'B5', 'E6']);
+        envelopeScreen.classList.add('opened');
+        setTimeout(() => {
+          envelopeScreen.style.display = 'none';
+          triggerRevealCheck();
+        }, 700);
+      });
+
+      // 3. Animasi Muncul saat Scroll (Intersection Observer)
+      const revealCards = document.querySelectorAll('.reveal-card');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      const triggerRevealCheck = () => {
+        revealCards.forEach((card) => observer.observe(card));
+      };
+      triggerRevealCheck();
+
+      // 4. Mini Game Tengil: Tombol 'Enggak, B aja' Kabur & Godaan Lucu
+      const btnNo = document.getElementById('btn-no');
+      const btnYes = document.getElementById('btn-yes');
+      const arena = document.getElementById('button-arena');
+      const teaseMessage = document.getElementById('tease-message');
+      const loveResult = document.getElementById('love-result');
+      const replayConfettiBtn = document.getElementById('replay-confetti-btn');
+
+      const teaseLines = [
+        'Eits, gak kena! Masa sama pacar sendiri B aja? 😜',
+        'Wleee meleset lagi! Pencet yang ijo aja napa sih 👻',
+        'Tombolnya aja nolak dipencet, tandanya kamu sayang banget 🤭',
+        'Udah bogel, masa mau bohong juga? Gak mempan! 😂',
+        'Ayo coba lagi kalau bisa, tombolnya udah lari duluan 🏃‍♂️💨',
+        'Nyerah aja udah, klik "Iya, Sayang Banget" sekarang ❤️'
+      ];
+
+      let dodgeCount = 0;
+      let yesScale = 1;
+
+      const dodgeButton = (e) => {
+        if (e) e.preventDefault();
+        playSoftChime(['G4', 'D4']);
+
+        const arenaRect = arena.getBoundingClientRect();
+        const btnRect = btnNo.getBoundingClientRect();
+
+        // Hitung batas gerak aman di dalam kotak arena
+        const maxX = Math.max(10, arenaRect.width - btnRect.width - 16);
+        const maxY = Math.max(10, arenaRect.height - btnRect.height - 16);
+
+        const randomX = Math.floor(Math.random() * maxX) + 8;
+        const randomY = Math.floor(Math.random() * maxY) + 8;
+
+        btnNo.style.position = 'absolute';
+        btnNo.style.left = `${randomX}px`;
+        btnNo.style.top = `${randomY}px`;
+
+        // Tampilkan teks godaan bergantian
+        teaseMessage.textContent = teaseLines[dodgeCount % teaseLines.length];
+        teaseMessage.classList.add('text-gold-600', 'font-semibold');
+        dodgeCount++;
+
+        // Perbesar tombol 'Iya' pelan-pelan biar makin menggoda
+        yesScale = Math.min(1.28, yesScale + 0.05);
+        btnYes.style.transform = `scale(${yesScale})`;
+      };
+
+      // Responsif untuk sentuhan jari di HP maupun klik mouse
+      btnNo.addEventListener('touchstart', dodgeButton, { passive: false });
+      btnNo.addEventListener('click', dodgeButton);
+      btnNo.addEventListener('mouseenter', dodgeButton);
+
+      // 5. Efek Konfeti Hati & Kelopak saat Klik 'Iya, Sayang Banget'
+      const launchHeartConfetti = () => {
+        const symbols = ['❤️', '💚', '✨', '🌸', '👻', '💛'];
+        const total = 42;
+
+        for (let i = 0; i < total; i++) {
+          const el = document.createElement('span');
+          el.className = 'heart-confetti';
+          el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+          el.style.left = `${Math.random() * 96}vw`;
+          el.style.fontSize = `${Math.floor(Math.random() * 14) + 16}px`;
+          el.style.animationDuration = `${(Math.random() * 2.2 + 2.2).toFixed(2)}s`;
+          el.style.animationDelay = `${(Math.random() * 0.6).toFixed(2)}s`;
+
+          document.body.appendChild(el);
+          setTimeout(() => {
+            el.remove();
+          }, 5000);
+        }
+      };
+
+      btnYes.addEventListener('click', () => {
+        playSoftChime(['C5', 'E5', 'G5', 'C6']);
+        launchHeartConfetti();
+        teaseMessage.textContent = 'Jawaban terbaik hari ini! 💯❤️';
+        btnNo.style.display = 'none';
+        btnYes.style.transform = 'scale(1)';
+        loveResult.classList.remove('hidden');
+        loveResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      replayConfettiBtn.addEventListener('click', () => {
+        playSoftChime(['E5', 'G5', 'C6']);
+        launchHeartConfetti();
+      });
+
+      // 6. Logika Mode Ganti Foto (Preview Trial langsung di browser)
+      const toggleTrialBtn = document.getElementById('toggle-trial-drawer');
+      const trialModal = document.getElementById('trial-modal');
+      const closeTrialBtn = document.getElementById('close-trial-modal');
+      const doneTrialBtn = document.getElementById('done-trial-modal');
+      const fileInputs = document.querySelectorAll('.trial-file-input');
+
+      const openModal = () => {
+        trialModal.classList.remove('hidden');
+        trialModal.classList.add('flex');
+      };
+
+      const closeModal = () => {
+        trialModal.classList.add('hidden');
+        trialModal.classList.remove('flex');
+      };
+
+      toggleTrialBtn.addEventListener('click', openModal);
+      closeTrialBtn.addEventListener('click', closeModal);
+      doneTrialBtn.addEventListener('click', closeModal);
+
+      fileInputs.forEach((input) => {
+        input.addEventListener('change', (event) => {
+          const file = event.target.files && event.target.files[0];
+          const targetId = event.target.getAttribute('data-target');
+          const targetImg = document.getElementById(targetId);
+
+          if (file && targetImg) {
+            const objectUrl = URL.createObjectURL(file);
+            targetImg.src = objectUrl;
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
