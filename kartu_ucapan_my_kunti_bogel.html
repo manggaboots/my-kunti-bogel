@@ -1,0 +1,478 @@
+<!-- ... existing code ... -->
+<body class="paper-texture min-h-screen font-sans antialiased selection:bg-sage-200 selection:text-sage-900">
+
+  <!-- =====================================================================
+       PANDUAN PENGGANTIAN FOTO & LAGU LOKAL:
+       Simpan 5 foto kamu di folder yang sama dengan file index.html ini,
+       beri nama foto-1.jpeg sampai foto-5.jpeg (otomatis cek .jpg / .png juga).
+       Untuk lagu lokal, simpan file dengan nama backsound.mp3 di folder sama.
+       ===================================================================== -->
+
+  <!-- ==================== 1. HALAMAN PEMBUKA (ENVELOPE LOCK SCREEN) ==================== -->
+<!-- ... existing code ... -->
+  <!-- ==================== TOMBOL FLOATING MODE GANTI FOTO (PREVIEW TRIAL) ==================== -->
+  <div id="trial-floating-wrapper" class="fixed bottom-4 right-4 z-40">
+    <button
+      id="toggle-trial-drawer"
+      type="button"
+      class="flex items-center gap-2 rounded-full border border-gold-300 bg-cream-50/95 px-4 py-2.5 text-xs font-bold text-sage-900 shadow-lg backdrop-blur-md transition hover:bg-sage-100 active:scale-95"
+      title="Ganti 5 foto & lagu langsung dari HP/Laptop untuk preview atau export HTML permanen"
+    >
+      <span class="flex h-2 w-2 rounded-full bg-gold-500 animate-ping"></span>
+      <span>📷 Ganti Foto &amp; Lagu (Trial)</span>
+    </button>
+  </div>
+
+  <!-- Modal / Drawer Mode Ganti Foto Trial -->
+  <div id="trial-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-sage-900/50 backdrop-blur-xs p-4">
+    <div class="w-full max-w-md rounded-3xl border border-gold-300/70 bg-cream-50 p-6 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-cream-200 pb-3">
+        <div>
+          <h3 class="font-serif text-lg font-bold text-sage-900">Mode Preview &amp; Export Permanen</h3>
+          <p class="text-xs text-sage-600">Pilih foto &amp; lagu dari galerimu, lalu unduh jadi 1 file HTML siap kirim.</p>
+        </div>
+        <button id="close-trial-modal" type="button" class="rounded-full bg-cream-200 p-2 text-sage-800 hover:bg-sage-200">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-3 max-h-[55vh] overflow-y-auto pr-1 text-xs">
+        <!-- Bagian Custom Backsound di Modal Trial -->
+        <div class="rounded-2xl bg-gold-300/20 p-3.5 border border-gold-300/80 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="font-bold text-sage-900">🎵 Custom Backsound (MP3 / Link)</label>
+            <span class="rounded-full bg-cream-50 px-2 py-0.5 text-[10px] font-semibold text-sage-700">Opsional</span>
+          </div>
+          <p class="text-[11px] text-sage-700">
+            Otomatis mencari <code>backsound.mp3</code> di folder lokal, atau memakai melodi lembut bawaan jika belum ada.
+          </p>
+          <input
+            id="custom-audio-file"
+            type="file"
+            accept="audio/*"
+            class="block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-gold-500 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white"
+          />
+          <div class="flex gap-2">
+            <input
+              id="custom-audio-url"
+              type="text"
+              placeholder="Contoh: backsound.mp3 atau URL audio"
+              class="flex-1 rounded-xl border border-sage-200 bg-cream-50 px-3 py-1.5 text-xs text-sage-900 placeholder:text-sage-500 focus:border-sage-500 focus:outline-none"
+            />
+            <button
+              id="apply-audio-url-btn"
+              type="button"
+              class="rounded-xl bg-sage-700 px-3 py-1.5 text-xs font-bold text-white hover:bg-sage-900 active:scale-95"
+            >
+              Pakai
+            </button>
+          </div>
+          <button
+            id="reset-synth-music-btn"
+            type="button"
+            class="text-[11px] font-semibold text-sage-700 underline hover:text-sage-900"
+          >
+            Kembali ke melodi bawaan (tanpa file)
+          </button>
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">1. Foto Intro (Cermin Rapi - <code>foto-1.jpeg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-1" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">2. Foto Momen Hangat (Cermin Pelukan - <code>foto-2.jpeg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-2" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">3. Foto Kolase Outdoor (<code>foto-3.jpeg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-3" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">4. Foto Kolase Meja / Ngobrol (<code>foto-4.jpeg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-4" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+
+        <div class="rounded-2xl bg-sage-100/70 p-3 border border-sage-200">
+          <label class="block font-bold text-sage-900 mb-1">5. Foto Kolase Penutup Gemas (<code>foto-5.jpeg</code>)</label>
+          <input type="file" accept="image/*" data-target="img-slot-5" class="trial-file-input block w-full text-sage-700 file:mr-3 file:rounded-xl file:border-0 file:bg-sage-700 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white" />
+        </div>
+      </div>
+
+      <!-- Status Pesan Ekspor -->
+      <p id="export-status-msg" class="mt-3 hidden rounded-xl bg-sage-100 px-3 py-2 text-[11px] font-medium text-sage-800"></p>
+
+      <div class="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+        <button id="done-trial-modal" type="button" class="rounded-xl border border-sage-300 bg-cream-100 px-4 py-2.5 text-xs font-bold text-sage-800 hover:bg-sage-100">
+          Tutup &amp; Lihat Preview
+        </button>
+        <button id="export-html-btn" type="button" class="rounded-xl bg-sage-700 px-4 py-2.5 text-xs font-bold text-white shadow-md hover:bg-sage-900 active:scale-95">
+          💾 Download HTML Utuh (Permanen)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 2. KONTEN UTAMA (SCROLLABLE STORY CARDS) ==================== -->
+<!-- ... existing code ... -->
+      <!-- Bingkai Portrait 3:4 dengan crop rapi dari atas -->
+      <div class="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-cream-200 bg-sage-100">
+        <img
+          id="img-slot-1"
+          src="foto-1.jpeg"
+          data-base="foto-1"
+          data-placeholder="https://placehold.co/600x800/E6EFE8/2A3F31?text=Slot+Foto+1%0A(foto-1.jpeg)%0ACermin+Rapi"
+          alt="Halo My Kunti Bogel"
+          class="local-photo-slot mirror-photo-crop h-full w-full transition-transform duration-700 hover:scale-[1.17]"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-sage-900/35 to-transparent"></div>
+        <span class="absolute bottom-3 left-3 rounded-full bg-cream-50/90 px-3 py-1 text-[11px] font-semibold text-sage-900 backdrop-blur-xs">
+          📍 Mirror check dulu
+        </span>
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+<!-- ... existing code ... -->
+      <!-- Bingkai Portrait 3:4 dengan crop rapi dari atas -->
+      <div class="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-cream-200 bg-sage-100">
+        <img
+          id="img-slot-2"
+          src="foto-2.jpeg"
+          data-base="foto-2"
+          data-placeholder="https://placehold.co/600x800/EFE8D8/2A3F31?text=Slot+Foto+2%0A(foto-2.jpeg)%0AMomen+Pelukan"
+          alt="Tempat Pulang Paling Nyaman"
+          class="local-photo-slot mirror-photo-crop h-full w-full transition-transform duration-700 hover:scale-[1.17]"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-sage-900/35 to-transparent"></div>
+        <span class="absolute bottom-3 left-3 rounded-full bg-cream-50/90 px-3 py-1 text-[11px] font-semibold text-sage-900 backdrop-blur-xs">
+          🤍 Isi ulang energi
+        </span>
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+<!-- ... existing code ... -->
+      <!-- Bingkai Kolase Lega (Rasio tinggi agar 4 panel ekspresi utuh dan jelas) -->
+      <div class="relative aspect-[9/15] w-full overflow-hidden rounded-2xl border-2 border-sage-200/80 bg-cream-100 shadow-inner">
+        <img
+          id="img-slot-3"
+          src="foto-3.jpeg"
+          data-base="foto-3"
+          data-placeholder="https://placehold.co/720x1200/E6EFE8/2A3F31?text=Slot+Foto+3%0A(foto-3.jpeg)%0AKolase+Outdoor+4-Panel"
+          alt="Partner In Crime dan Tukang Ngambek"
+          class="local-photo-slot collage-photo-fit h-full w-full"
+        />
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+<!-- ... existing code ... -->
+      <!-- Bingkai Kolase Lega -->
+      <div class="relative aspect-[9/15] w-full overflow-hidden rounded-2xl border-2 border-sage-200/80 bg-cream-100 shadow-inner">
+        <img
+          id="img-slot-4"
+          src="foto-4.jpeg"
+          data-base="foto-4"
+          data-placeholder="https://placehold.co/720x1200/EFE8D8/2A3F31?text=Slot+Foto+4%0A(foto-4.jpeg)%0AKolase+Ngobrol+4-Panel"
+          alt="Dari Muka Serius Sampai Muka Aneh"
+          class="local-photo-slot collage-photo-fit h-full w-full"
+        />
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+<!-- ... existing code ... -->
+      <!-- Bingkai Kolase Lega -->
+      <div class="relative aspect-[9/15] w-full overflow-hidden rounded-2xl border-2 border-gold-300/60 bg-cream-100 shadow-inner">
+        <img
+          id="img-slot-5"
+          src="foto-5.jpeg"
+          data-base="foto-5"
+          data-placeholder="https://placehold.co/720x1200/E6EFE8/2A3F31?text=Slot+Foto+5%0A(foto-5.jpeg)%0AKolase+Penutup+4-Panel"
+          alt="Makasih Udah Hadir Kunti Bogel"
+          class="local-photo-slot collage-photo-fit h-full w-full"
+        />
+      </div>
+
+      <div class="mt-4 space-y-2 px-1">
+<!-- ... existing code ... -->
+  <!-- ==================== JAVASCRIPT INTERAKTIVITAS & ANIMASI ==================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 0. Mekanisme Fallback Otomatis Foto (.jpeg -> .jpg -> .png -> placeholder)
+      const fallbackExtensions = ['jpeg', 'jpg', 'png'];
+      document.querySelectorAll('.local-photo-slot').forEach((img) => {
+        let attemptIndex = 0; // 0 = .jpeg (sudah di src awal), 1 = .jpg, 2 = .png
+        img.addEventListener('error', () => {
+          // Abaikan jika user sudah memuat foto via FileReader (data URL)
+          if (img.src.startsWith('data:')) return;
+          attemptIndex++;
+          const baseName = img.getAttribute('data-base');
+          if (baseName && attemptIndex < fallbackExtensions.length) {
+            img.src = `${baseName}.${fallbackExtensions[attemptIndex]}`;
+          } else {
+            const placeholderUrl = img.getAttribute('data-placeholder');
+            if (placeholderUrl && img.src !== placeholderUrl) {
+              img.src = placeholderUrl;
+            }
+          }
+        });
+      });
+
+      // Penyimpanan data permanen untuk fitur Export HTML Utuh
+      const embeddedPhotos = {};
+      let embeddedAudioDataUrl = window.__EMBEDDED_BGM_DATA__ || null;
+      let embeddedAudioName = window.__EMBEDDED_BGM_NAME__ || null;
+
+      // 1. Setup Efek Suara Lembut & Backsound Player (Web Audio API + HTML5 Audio MP3/URL)
+      let synth = null;
+      let bgmGain = null;
+      let bgmLoopTimer = null;
+      let bgmStepIndex = 0;
+      let isBgmPlaying = false;
+      let bgmVolume = 0.55;
+      let audioMode = 'synth'; // 'synth' | 'custom'
+
+      // Elemen Audio HTML5 untuk MP3 lokal / Data URL / URL eksternal
+      const customAudioEl = new Audio();
+      customAudioEl.loop = true;
+      customAudioEl.preload = 'auto';
+      customAudioEl.volume = bgmVolume;
+
+      const musicToggleBtn = document.getElementById('music-toggle-btn');
+      const musicIcon = document.getElementById('music-icon');
+      const musicEq = document.getElementById('music-eq');
+      const musicStatusLabel = document.getElementById('music-status-label');
+      const musicSubLabel = document.getElementById('music-sub-label');
+      const musicVolumeSlider = document.getElementById('music-volume-slider');
+
+      // Cek apakah ada audio tertanam (dari hasil Export Permanen) atau file lokal backsound.mp3
+      if (embeddedAudioDataUrl) {
+        audioMode = 'custom';
+        customAudioEl.src = embeddedAudioDataUrl;
+        musicStatusLabel.textContent = embeddedAudioName || 'Lagu Spesial Berdua';
+        musicSubLabel.textContent = 'Backsound siap • Klik play atau buka surat';
+      } else {
+        // Coba cek keberadaan backsound.mp3 secara diam-diam di folder lokal
+        const probeLocalMp3 = new Audio('backsound.mp3');
+        probeLocalMp3.addEventListener('canplaythrough', () => {
+          if (!embeddedAudioDataUrl && audioMode === 'synth' && !isBgmPlaying) {
+            audioMode = 'custom';
+            customAudioEl.src = 'backsound.mp3';
+            musicStatusLabel.textContent = 'Backsound Spesial (MP3)';
+            musicSubLabel.textContent = 'File lokal siap • Klik play atau buka surat';
+          }
+        }, { once: true });
+      }
+
+      // Pola melodi akustik lembut bergaya romantis & sedikit tengil (chord progression hangat)
+// ... existing code ...
+      if (customAudioFileInput) {
+        customAudioFileInput.addEventListener('change', async (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          stopSynthLoop();
+          audioMode = 'custom';
+          const cleanName = file.name.replace(/\.[^/.]+$/, '');
+          embeddedAudioName = cleanName || 'Lagu Spesial Berdua';
+
+          const reader = new FileReader();
+          reader.onload = async (ev) => {
+            embeddedAudioDataUrl = ev.target.result;
+            customAudioEl.src = embeddedAudioDataUrl;
+            customAudioEl.load();
+            updateMusicUI(false, embeddedAudioName, 'Memuat file audio...');
+            await playBacksound();
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      if (applyAudioUrlBtn && customAudioUrlInput) {
+        applyAudioUrlBtn.addEventListener('click', async () => {
+          const rawUrl = customAudioUrlInput.value.trim();
+          if (!rawUrl) return;
+          stopSynthLoop();
+          audioMode = 'custom';
+          embeddedAudioDataUrl = rawUrl;
+          embeddedAudioName = rawUrl;
+          customAudioEl.src = rawUrl;
+          customAudioEl.load();
+          updateMusicUI(false, rawUrl, 'Memuat audio dari tautan...');
+          await playBacksound();
+        });
+      }
+
+      customAudioEl.addEventListener('error', () => {
+        if (audioMode === 'custom') {
+          audioMode = 'synth';
+          updateMusicUI(false, 'Melodi Romantis Tengil', 'File audio tidak ditemukan, beralih ke melodi bawaan');
+        }
+      });
+
+      if (resetSynthMusicBtn) {
+        resetSynthMusicBtn.addEventListener('click', async () => {
+          try {
+            customAudioEl.pause();
+            customAudioEl.removeAttribute('src');
+          } catch (err) {
+            // Abaikan
+          }
+          embeddedAudioDataUrl = null;
+          embeddedAudioName = null;
+          if (customAudioFileInput) customAudioFileInput.value = '';
+          if (customAudioUrlInput) customAudioUrlInput.value = '';
+          audioMode = 'synth';
+          updateMusicUI(false, 'Melodi Romantis Tengil', 'Backsound bawaan siap');
+          await playBacksound();
+        });
+      }
+
+      // 2. Interaksi Buka Amplop Pembuka + Auto-start Backsound
+<!-- ... existing code ... -->
+      // 6. Logika Mode Ganti Foto (Preview Trial langsung di browser) & Export HTML Permanen
+      const toggleTrialBtn = document.getElementById('toggle-trial-drawer');
+      const trialModal = document.getElementById('trial-modal');
+      const closeTrialBtn = document.getElementById('close-trial-modal');
+      const doneTrialBtn = document.getElementById('done-trial-modal');
+      const exportHtmlBtn = document.getElementById('export-html-btn');
+      const exportStatusMsg = document.getElementById('export-status-msg');
+      const fileInputs = document.querySelectorAll('.trial-file-input');
+
+      const openModal = () => {
+        trialModal.classList.remove('hidden');
+        trialModal.classList.add('flex');
+      };
+
+      const closeModal = () => {
+        trialModal.classList.add('hidden');
+        trialModal.classList.remove('flex');
+      };
+
+      toggleTrialBtn.addEventListener('click', openModal);
+      closeTrialBtn.addEventListener('click', closeModal);
+      doneTrialBtn.addEventListener('click', closeModal);
+
+      // Kompres ringan & ubah gambar ke Data URL agar ukuran file HTML hasil export tetap ramping
+      const convertImageToDataUrl = (file) => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+              const maxDim = 1400;
+              let { width, height } = img;
+              if (width > maxDim || height > maxDim) {
+                if (width > height) {
+                  height = Math.round((height * maxDim) / width);
+                  width = maxDim;
+                } else {
+                  width = Math.round((width * maxDim) / height);
+                  height = maxDim;
+                }
+              }
+              const canvas = document.createElement('canvas');
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, width, height);
+              resolve(canvas.toDataURL('image/jpeg', 0.86));
+            };
+            img.onerror = () => resolve(e.target.result);
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        });
+      };
+
+      fileInputs.forEach((input) => {
+        input.addEventListener('change', async (event) => {
+          const file = event.target.files && event.target.files[0];
+          const targetId = event.target.getAttribute('data-target');
+          const targetImg = document.getElementById(targetId);
+
+          if (file && targetImg) {
+            const dataUrl = await convertImageToDataUrl(file);
+            embeddedPhotos[targetId] = dataUrl;
+            targetImg.src = dataUrl;
+          }
+        });
+      });
+
+      // Fungsi Download 1 File HTML Mandiri Tanpa Tombol Trial
+      if (exportHtmlBtn) {
+        exportHtmlBtn.addEventListener('click', () => {
+          try {
+            exportStatusMsg.classList.remove('hidden');
+            exportStatusMsg.textContent = 'Sedang merakit file HTML utuh...';
+
+            // Kloning dokumen saat ini agar bersih dari state sementara
+            const clonedDoc = document.documentElement.cloneNode(true);
+
+            // Reset amplop pembuka agar saat pacar membuka file, amplop tertutup rapi dari awal
+            const clonedEnvelope = clonedDoc.querySelector('#envelope-screen');
+            if (clonedEnvelope) {
+              clonedEnvelope.classList.remove('opened');
+              clonedEnvelope.style.display = '';
+            }
+
+            // Hapus tombol floating & modal trial dari versi final siap kirim
+            const clonedFloating = clonedDoc.querySelector('#trial-floating-wrapper');
+            const clonedModal = clonedDoc.querySelector('#trial-modal');
+            if (clonedFloating) clonedFloating.remove();
+            if (clonedModal) clonedModal.remove();
+
+            // Tanamkan foto yang dipilih (atau yang sedang tampil) secara permanen ke dalam tag <img>
+            for (let i = 1; i <= 5; i++) {
+              const slotId = `img-slot-${i}`;
+              const clonedImg = clonedDoc.querySelector(`#${slotId}`);
+              if (clonedImg) {
+                if (embeddedPhotos[slotId]) {
+                  clonedImg.setAttribute('src', embeddedPhotos[slotId]);
+                } else {
+                  const liveImg = document.getElementById(slotId);
+                  if (liveImg && liveImg.src && liveImg.src.startsWith('data:')) {
+                    clonedImg.setAttribute('src', liveImg.src);
+                  }
+                }
+              }
+            }
+
+            // Reset status tombol equalizer ke posisi awal sebelum di-klik
+            const clonedEq = clonedDoc.querySelector('#music-eq');
+            const clonedIcon = clonedDoc.querySelector('#music-icon');
+            if (clonedEq) clonedEq.classList.remove('eq-playing');
+            if (clonedIcon) clonedIcon.textContent = '▶';
+
+            // Sisipkan skrip konfigurasi backsound jika ada audio kustom yang dipilih
+            if (embeddedAudioDataUrl) {
+              const configScript = clonedDoc.ownerDocument.createElement('script');
+              configScript.textContent = `window.__EMBEDDED_BGM_DATA__ = ${JSON.stringify(embeddedAudioDataUrl)}; window.__EMBEDDED_BGM_NAME__ = ${JSON.stringify(embeddedAudioName || 'Lagu Spesial Berdua')};`;
+              const headEl = clonedDoc.querySelector('head');
+              if (headEl) headEl.appendChild(configScript);
+            }
+
+            const finalHtml = '<!DOCTYPE html>\n' + clonedDoc.outerHTML;
+            const blob = new Blob([finalHtml], { type: 'text/html;charset=utf-8' });
+            const downloadUrl = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'kartu-ucapan-kunti-bogel.html';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(downloadUrl), 3000);
+
+            exportStatusMsg.textContent = '✅ Berhasil! File "kartu-ucapan-kunti-bogel.html" sudah terunduh dan siap langsung dikirim.';
+          } catch (err) {
+            exportStatusMsg.textContent = '⚠️ Gagal merakit file: ' + (err.message || 'Coba ulangi kembali.');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
